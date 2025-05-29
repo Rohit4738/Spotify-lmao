@@ -430,13 +430,24 @@ function App() {
         currentTrack={currentTrack}
         volume={volume}
         onVolumeChange={handleVolumeChange}
+        onNext={handleNext}
+        onPrevious={handlePrevious}
+        isShuffled={isShuffled}
+        onShuffle={handleShuffle}
+        isRepeated={isRepeated}
+        onRepeat={handleRepeat}
+        currentTime={currentTime}
+        duration={duration}
+        onSeek={handleSeek}
       />
       
       {/* YouTube Player (hidden) */}
       <YouTubePlayer 
-        isPlaying={isPlaying}
         currentTrack={currentTrack}
-        onEnded={() => setIsPlaying(false)}
+        isPlaying={isPlaying}
+        onPlayerReady={handlePlayerReady}
+        onStateChange={handleStateChange}
+        volume={volume}
       />
     </div>
   );
