@@ -217,8 +217,8 @@ function App() {
     // YouTube player states: -1 (unstarted), 0 (ended), 1 (playing), 2 (paused), 3 (buffering), 5 (cued)
     if (event.data === 1) {
       setIsPlaying(true);
-      if (playerInstance.getDuration) {
-        setDuration(playerInstance.getDuration());
+      if (player && player.getDuration) {
+        setDuration(player.getDuration());
       }
     } else if (event.data === 2) {
       setIsPlaying(false);
