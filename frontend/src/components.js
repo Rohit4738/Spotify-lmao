@@ -680,4 +680,4 @@ export const SearchView = ({ theme, onTrackClick }) => {
   );
 };
 
-export default THEMES;
+export { THEMES as default };
