@@ -224,7 +224,12 @@ function App() {
       setIsPlaying(false);
     } else if (event.data === 0) {
       // Video ended
-      handleNext();
+      if (isRepeated) {
+        // Replay current track
+        setIsPlaying(true);
+      } else {
+        handleNext();
+      }
     }
   };
 
