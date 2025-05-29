@@ -70,7 +70,7 @@ const THEMES = {
   }
 };
 
-// Mock data with the images from vision_expert_agent
+// Expanded mock data with YouTube video IDs
 const MOCK_DATA = {
   user: {
     name: 'John Doe',
@@ -84,102 +84,74 @@ const MOCK_DATA = {
       title: "Today's Top Hits",
       description: "The most played songs right now",
       image: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",
-      trackCount: 50
+      trackCount: 50,
+      tracks: [
+        { id: 1, title: "Flowers", artist: "Miley Cyrus", youtubeId: "G7KNmW9a75Y", duration: "3:20" },
+        { id: 2, title: "Anti-Hero", artist: "Taylor Swift", youtubeId: "b1kbLWvqugk", duration: "3:20" },
+        { id: 3, title: "Unholy", artist: "Sam Smith ft. Kim Petras", youtubeId: "Uq9gPaIzbe8", duration: "2:36" }
+      ]
     },
     {
       id: 2,
-      title: "Indie Mix",
-      description: "Discover indie artists",
+      title: "Classic Rock Legends",
+      description: "Timeless rock anthems",
       image: "https://images.unsplash.com/photo-1520262494112-9fe481d36ec3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwzfHxhbGJ1bSUyMGNvdmVyfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc0ODQ5Mzk3MHww&ixlib=rb-4.1.0&q=85",
-      trackCount: 30
+      trackCount: 30,
+      tracks: [
+        { id: 4, title: "Bohemian Rhapsody", artist: "Queen", youtubeId: "fJ9rUzIMcZQ", duration: "5:55" },
+        { id: 5, title: "Stairway to Heaven", artist: "Led Zeppelin", youtubeId: "QkF3oxziUI4", duration: "8:02" },
+        { id: 6, title: "Hotel California", artist: "Eagles", youtubeId: "BciS5krYL80", duration: "6:30" }
+      ]
     },
     {
       id: 3,
       title: "Electronic Vibes",
       description: "Best electronic music",
       image: "https://images.pexels.com/photos/844928/pexels-photo-844928.jpeg",
-      trackCount: 40
+      trackCount: 40,
+      tracks: [
+        { id: 7, title: "Midnight City", artist: "M83", youtubeId: "dX3k_QDnzHE", duration: "4:03" },
+        { id: 8, title: "Strobe", artist: "Deadmau5", youtubeId: "tKi9Z-f6qX4", duration: "10:37" },
+        { id: 9, title: "Language", artist: "Porter Robinson", youtubeId: "Vsy1URDYK88", duration: "6:09" }
+      ]
     },
     {
       id: 4,
       title: "Acoustic Sessions",
       description: "Stripped down versions",
       image: "https://images.pexels.com/photos/2479312/pexels-photo-2479312.jpeg",
-      trackCount: 25
+      trackCount: 25,
+      tracks: [
+        { id: 10, title: "Hurt", artist: "Johnny Cash", youtubeId: "8AHCfZTRGiI", duration: "3:38" },
+        { id: 11, title: "Mad World", artist: "Gary Jules", youtubeId: "4N3N1MlvVc4", duration: "3:07" },
+        { id: 12, title: "Black", artist: "Pearl Jam", youtubeId: "5ChbxMVgGV4", duration: "5:43" }
+      ]
     }
   ],
   recentlyPlayed: [
-    {
-      id: 1,
-      title: "Bohemian Rhapsody",
-      artist: "Queen",
-      album: "A Night at the Opera",
-      image: "https://images.unsplash.com/photo-1580656449278-e8381933522c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHx2aW55bCUyMHJlY29yZHxlbnwwfHx8fDE3NDg0OTM5ODV8MA&ixlib=rb-4.1.0&q=85",
-      duration: "5:55",
-      youtubeQuery: "Queen Bohemian Rhapsody official"
-    },
-    {
-      id: 2,
-      title: "Imagine",
-      artist: "John Lennon",
-      album: "Imagine",
-      image: "https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg",
-      duration: "3:01",
-      youtubeQuery: "John Lennon Imagine official"
-    },
-    {
-      id: 3,
-      title: "Hotel California",
-      artist: "Eagles",
-      album: "Hotel California",
-      image: "https://images.unsplash.com/photo-1602848597941-0d3d3a2c1241?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHx2aW55bCUyMHJlY29yZHxlbnwwfHx8fDE3NDg0OTM5ODV8MA&ixlib=rb-4.1.0&q=85",
-      duration: "6:30",
-      youtubeQuery: "Eagles Hotel California official"
-    }
+    { id: 1, title: "Bohemian Rhapsody", artist: "Queen", album: "A Night at the Opera", image: "https://images.unsplash.com/photo-1580656449278-e8381933522c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHx2aW55bCUyMHJlY29yZHxlbnwwfHx8fDE3NDg0OTM5ODV8MA&ixlib=rb-4.1.0&q=85", duration: "5:55", youtubeId: "fJ9rUzIMcZQ" },
+    { id: 2, title: "Imagine", artist: "John Lennon", album: "Imagine", image: "https://images.pexels.com/photos/1389429/pexels-photo-1389429.jpeg", duration: "3:01", youtubeId: "YkgkThdzX-8" },
+    { id: 3, title: "Hotel California", artist: "Eagles", album: "Hotel California", image: "https://images.unsplash.com/photo-1602848597941-0d3d3a2c1241?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHx2aW55bCUyMHJlY29yZHxlbnwwfHx8fDE3NDg0OTM5ODV8MA&ixlib=rb-4.1.0&q=85", duration: "6:30", youtubeId: "BciS5krYL80" },
+    { id: 4, title: "Stairway to Heaven", artist: "Led Zeppelin", album: "Led Zeppelin IV", image: "https://images.pexels.com/photos/10933700/pexels-photo-10933700.jpeg", duration: "8:02", youtubeId: "QkF3oxziUI4" },
+    { id: 5, title: "Sweet Child O' Mine", artist: "Guns N' Roses", album: "Appetite for Destruction", image: "https://images.unsplash.com/photo-1576514129883-2f1d47a65da6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwc3RhZ2V8ZW58MHx8fHwxNzQ4NDkzOTg5fDA&ixlib=rb-4.1.0&q=85", duration: "5:03", youtubeId: "1w7OgIMMRc4" },
+    { id: 6, title: "Smells Like Teen Spirit", artist: "Nirvana", album: "Nevermind", image: "https://images.pexels.com/photos/1677710/pexels-photo-1677710.jpeg", duration: "5:01", youtubeId: "hTWKbfoikeg" },
+    { id: 7, title: "Billie Jean", artist: "Michael Jackson", album: "Thriller", image: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg", duration: "4:54", youtubeId: "Zi_XLOBDo_Y" },
+    { id: 8, title: "Don't Stop Believin'", artist: "Journey", album: "Escape", image: "https://images.pexels.com/photos/10667620/pexels-photo-10667620.jpeg", duration: "4:11", youtubeId: "1k8craCGpgs" }
   ],
   topArtists: [
-    {
-      id: 1,
-      name: "The Beatles",
-      image: "https://images.unsplash.com/photo-1575285113814-f770cb8c796e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxtdXNpYyUyMGFydGlzdHxlbnwwfHx8fDE3NDg0OTM5NzR8MA&ixlib=rb-4.1.0&q=85",
-      followers: "31,234,567"
-    },
-    {
-      id: 2,
-      name: "Taylor Swift",
-      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwyfHxtdXNpYyUyMGFydGlzdHxlbnwwfHx8fDE3NDg0OTM5NzR8MA&ixlib=rb-4.1.0&q=85",
-      followers: "89,123,456"
-    },
-    {
-      id: 3,
-      name: "Drake",
-      image: "https://images.unsplash.com/photo-1520170975578-25bd5217bf3d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxtdXNpYyUyMGdlbnJlc3xlbnwwfHx8fDE3NDg0OTM5ODB8MA&ixlib=rb-4.1.0&q=85",
-      followers: "67,890,123"
-    }
+    { id: 1, name: "The Beatles", image: "https://images.unsplash.com/photo-1575285113814-f770cb8c796e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxtdXNpYyUyMGFydGlzdHxlbnwwfHx8fDE3NDg0OTM5NzR8MA&ixlib=rb-4.1.0&q=85", followers: "31,234,567" },
+    { id: 2, name: "Taylor Swift", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwyfHxtdXNpYyUyMGFydGlzdHxlbnwwfHx8fDE3NDg0OTM5NzR8MA&ixlib=rb-4.1.0&q=85", followers: "89,123,456" },
+    { id: 3, name: "Drake", image: "https://images.unsplash.com/photo-1520170975578-25bd5217bf3d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxtdXNpYyUyMGdlbnJlc3xlbnwwfHx8fDE3NDg0OTM5ODB8MA&ixlib=rb-4.1.0&q=85", followers: "67,890,123" },
+    { id: 4, name: "Adele", image: "https://images.unsplash.com/photo-1563841930606-67e2bce48b78?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxjb25jZXJ0JTIwc3RhZ2V8ZW58MHx8fHwxNzQ4NDkzOTg5fDA&ixlib=rb-4.1.0&q=85", followers: "45,678,901" }
   ],
   userPlaylists: [
-    {
-      id: 1,
-      title: "My Favorites",
-      trackCount: 127,
-      image: "https://images.pexels.com/photos/1677710/pexels-photo-1677710.jpeg"
-    },
-    {
-      id: 2,
-      title: "Workout Mix",
-      trackCount: 45,
-      image: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg"
-    },
-    {
-      id: 3,
-      title: "Chill Vibes",
-      trackCount: 78,
-      image: "https://images.pexels.com/photos/10667620/pexels-photo-10667620.jpeg"
-    }
+    { id: 1, title: "My Favorites", trackCount: 127, image: "https://images.pexels.com/photos/1677710/pexels-photo-1677710.jpeg", tracks: [] },
+    { id: 2, title: "Workout Mix", trackCount: 45, image: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg", tracks: [] },
+    { id: 3, title: "Chill Vibes", trackCount: 78, image: "https://images.pexels.com/photos/10667620/pexels-photo-10667620.jpeg", tracks: [] }
   ]
 };
 
-// Icons
+// Icons (same as before)
 const PlayIcon = ({ className = "w-6 h-6" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
     <path d="M8 5v14l11-7z"/>
@@ -228,6 +200,18 @@ const VolumeIcon = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
+const ShuffleIcon = ({ className = "w-5 h-5" }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+  </svg>
+);
+
+const RepeatIcon = ({ className = "w-5 h-5" }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+  </svg>
+);
+
 const GoogleIcon = ({ className = "w-5 h-5" }) => (
   <svg className={className} viewBox="0 0 24 24">
     <path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -237,27 +221,222 @@ const GoogleIcon = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
-// YouTube Player Component
-export const YouTubePlayer = ({ isPlaying, currentTrack, onEnded }) => {
+// YouTube Player Component with real integration
+export const YouTubePlayer = ({ currentTrack, isPlaying, onPlayerReady, onStateChange, volume }) => {
   const playerRef = useRef(null);
+  const [player, setPlayer] = useState(null);
 
   useEffect(() => {
-    if (currentTrack && isPlaying) {
-      // In a real implementation, you would use YouTube API here
-      // For now, we'll simulate the YouTube player
-      console.log(`Playing: ${currentTrack.youtubeQuery}`);
+    // Load YouTube IFrame API
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      window.onYouTubeIframeAPIReady = () => {
+        initializePlayer();
+      };
+    } else if (window.YT && window.YT.Player) {
+      initializePlayer();
     }
-  }, [isPlaying, currentTrack]);
+  }, []);
+
+  const initializePlayer = () => {
+    const newPlayer = new window.YT.Player(playerRef.current, {
+      height: '0',
+      width: '0',
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        modestbranding: 1,
+        rel: 0,
+        showinfo: 0
+      },
+      events: {
+        onReady: (event) => {
+          setPlayer(event.target);
+          if (onPlayerReady) onPlayerReady(event.target);
+        },
+        onStateChange: (event) => {
+          if (onStateChange) onStateChange(event);
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (player && currentTrack?.youtubeId) {
+      player.loadVideoById(currentTrack.youtubeId);
+      if (isPlaying) {
+        player.playVideo();
+      }
+    }
+  }, [player, currentTrack]);
+
+  useEffect(() => {
+    if (player) {
+      if (isPlaying) {
+        player.playVideo();
+      } else {
+        player.pauseVideo();
+      }
+    }
+  }, [player, isPlaying]);
+
+  useEffect(() => {
+    if (player && typeof volume !== 'undefined') {
+      player.setVolume(volume);
+    }
+  }, [player, volume]);
+
+  return <div ref={playerRef} className="hidden" />;
+};
+
+// Enhanced Music Player Component with real controls
+export const MusicPlayer = ({ 
+  theme, 
+  isPlaying, 
+  onPlayPause, 
+  currentTrack, 
+  volume, 
+  onVolumeChange, 
+  onNext, 
+  onPrevious,
+  isShuffled,
+  onShuffle,
+  isRepeated,
+  onRepeat,
+  currentTime,
+  duration,
+  onSeek
+}) => {
+  const formatTime = (seconds) => {
+    if (!seconds) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleProgressClick = (e) => {
+    if (!duration || !onSeek) return;
+    const progressBar = e.currentTarget;
+    const rect = progressBar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const progressPercent = clickX / rect.width;
+    const newTime = progressPercent * duration;
+    onSeek(newTime);
+  };
+
+  const progress = duration ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="hidden">
-      {/* Hidden YouTube player would go here */}
-      <div ref={playerRef}></div>
+    <div className={`${THEMES[theme].secondary} ${THEMES[theme].text} ${THEMES[theme].border} border-t p-4`}>
+      <div className="flex items-center justify-between">
+        {/* Current Track Info */}
+        <div className="flex items-center space-x-4 min-w-0 flex-1">
+          {currentTrack ? (
+            <>
+              <img 
+                src={currentTrack.image} 
+                alt={currentTrack.title}
+                className="w-14 h-14 rounded-lg object-cover"
+              />
+              <div className="min-w-0">
+                <div className={`${THEMES[theme].text} font-medium truncate`}>
+                  {currentTrack.title}
+                </div>
+                <div className={`${THEMES[theme].textSecondary} text-sm truncate`}>
+                  {currentTrack.artist}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center space-x-4">
+              <div className={`w-14 h-14 ${THEMES[theme].primary} rounded-lg`}></div>
+              <div>
+                <div className={`${THEMES[theme].textSecondary} text-sm`}>No track selected</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Player Controls */}
+        <div className="flex flex-col items-center space-y-2 flex-1 max-w-lg">
+          <div className="flex items-center space-x-4">
+            <button 
+              onClick={onShuffle}
+              className={`transition-colors ${isShuffled ? THEMES[theme].accent.replace('bg-', 'text-') : `${THEMES[theme].textSecondary} hover:${THEMES[theme].text}`}`}
+            >
+              <ShuffleIcon />
+            </button>
+            <button 
+              onClick={onPrevious}
+              className={`${THEMES[theme].textSecondary} hover:${THEMES[theme].text} transition-colors`}
+            >
+              <SkipPrevIcon />
+            </button>
+            <button 
+              onClick={onPlayPause}
+              className={`${THEMES[theme].accent} ${THEMES[theme].accentHover} p-3 rounded-full text-white transition-colors`}
+            >
+              {isPlaying ? <PauseIcon /> : <PlayIcon />}
+            </button>
+            <button 
+              onClick={onNext}
+              className={`${THEMES[theme].textSecondary} hover:${THEMES[theme].text} transition-colors`}
+            >
+              <SkipNextIcon />
+            </button>
+            <button 
+              onClick={onRepeat}
+              className={`transition-colors ${isRepeated ? THEMES[theme].accent.replace('bg-', 'text-') : `${THEMES[theme].textSecondary} hover:${THEMES[theme].text}`}`}
+            >
+              <RepeatIcon />
+            </button>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="flex items-center space-x-2 w-full">
+            <span className={`${THEMES[theme].textSecondary} text-xs min-w-[35px]`}>
+              {formatTime(currentTime)}
+            </span>
+            <div 
+              className={`flex-1 h-1 ${THEMES[theme].primary} rounded-full overflow-hidden cursor-pointer`}
+              onClick={handleProgressClick}
+            >
+              <div 
+                className={`h-full ${THEMES[theme].accent} transition-all duration-200`}
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <span className={`${THEMES[theme].textSecondary} text-xs min-w-[35px]`}>
+              {formatTime(duration)}
+            </span>
+          </div>
+        </div>
+
+        {/* Volume Control */}
+        <div className="flex items-center space-x-2 flex-1 justify-end">
+          <VolumeIcon className={`${THEMES[theme].textSecondary} w-5 h-5`} />
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={volume}
+            onChange={(e) => onVolumeChange(parseInt(e.target.value))}
+            className="w-24 accent-current"
+          />
+        </div>
+      </div>
     </div>
   );
 };
 
-// Header Component
+// All other components remain the same but with enhanced functionality...
+// Header Component (same as before but with logout fix)
 export const Header = ({ theme, onThemeChange, user, onLogin, onLogout }) => {
   const [showProfile, setShowProfile] = useState(false);
   const [showThemes, setShowThemes] = useState(false);
@@ -355,7 +534,7 @@ export const Header = ({ theme, onThemeChange, user, onLogin, onLogout }) => {
   );
 };
 
-// Sidebar Component
+// Sidebar Component (same as before)
 export const Sidebar = ({ theme, currentView, onViewChange, user }) => {
   const menuItems = [
     { id: 'home', label: 'Home', icon: HomeIcon },
@@ -412,103 +591,7 @@ export const Sidebar = ({ theme, currentView, onViewChange, user }) => {
   );
 };
 
-// Music Player Component
-export const MusicPlayer = ({ theme, isPlaying, onPlayPause, currentTrack, volume, onVolumeChange }) => {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    let interval;
-    if (isPlaying && currentTrack) {
-      interval = setInterval(() => {
-        setProgress(prev => Math.min(prev + 1, 100));
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying, currentTrack]);
-
-  return (
-    <div className={`${THEMES[theme].secondary} ${THEMES[theme].text} ${THEMES[theme].border} border-t p-4`}>
-      <div className="flex items-center justify-between">
-        {/* Current Track Info */}
-        <div className="flex items-center space-x-4 min-w-0 flex-1">
-          {currentTrack ? (
-            <>
-              <img 
-                src={currentTrack.image} 
-                alt={currentTrack.title}
-                className="w-14 h-14 rounded-lg object-cover"
-              />
-              <div className="min-w-0">
-                <div className={`${THEMES[theme].text} font-medium truncate`}>
-                  {currentTrack.title}
-                </div>
-                <div className={`${THEMES[theme].textSecondary} text-sm truncate`}>
-                  {currentTrack.artist}
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="flex items-center space-x-4">
-              <div className={`w-14 h-14 ${THEMES[theme].primary} rounded-lg`}></div>
-              <div>
-                <div className={`${THEMES[theme].textSecondary} text-sm`}>No track selected</div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Player Controls */}
-        <div className="flex flex-col items-center space-y-2 flex-1 max-w-lg">
-          <div className="flex items-center space-x-4">
-            <button className={`${THEMES[theme].textSecondary} hover:${THEMES[theme].text} transition-colors`}>
-              <SkipPrevIcon />
-            </button>
-            <button 
-              onClick={onPlayPause}
-              className={`${THEMES[theme].accent} ${THEMES[theme].accentHover} p-3 rounded-full text-white transition-colors`}
-            >
-              {isPlaying ? <PauseIcon /> : <PlayIcon />}
-            </button>
-            <button className={`${THEMES[theme].textSecondary} hover:${THEMES[theme].text} transition-colors`}>
-              <SkipNextIcon />
-            </button>
-          </div>
-          
-          {/* Progress Bar */}
-          <div className="flex items-center space-x-2 w-full">
-            <span className={`${THEMES[theme].textSecondary} text-xs`}>
-              {Math.floor(progress * 3.6 / 60)}:{Math.floor(progress * 3.6 % 60).toString().padStart(2, '0')}
-            </span>
-            <div className={`flex-1 h-1 ${THEMES[theme].primary} rounded-full overflow-hidden`}>
-              <div 
-                className={`h-full ${THEMES[theme].accent} transition-all duration-1000`}
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-            <span className={`${THEMES[theme].textSecondary} text-xs`}>
-              {currentTrack?.duration || '0:00'}
-            </span>
-          </div>
-        </div>
-
-        {/* Volume Control */}
-        <div className="flex items-center space-x-2 flex-1 justify-end">
-          <VolumeIcon className={`${THEMES[theme].textSecondary} w-5 h-5`} />
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={volume}
-            onChange={(e) => onVolumeChange(e.target.value)}
-            className="w-24 accent-current"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Content Grid Component
+// Content Grid Component (enhanced for playlist detail)
 export const ContentGrid = ({ theme, title, items, onItemClick, type = 'playlist' }) => {
   return (
     <div className="mb-8">
@@ -548,7 +631,7 @@ export const ContentGrid = ({ theme, title, items, onItemClick, type = 'playlist
   );
 };
 
-// Track List Component
+// Track List Component (enhanced)
 export const TrackList = ({ theme, tracks, onTrackClick, currentTrack }) => {
   return (
     <div className="space-y-1">
@@ -583,7 +666,7 @@ export const TrackList = ({ theme, tracks, onTrackClick, currentTrack }) => {
   );
 };
 
-// Search Component
+// Search Component (enhanced)
 export const SearchView = ({ theme, onTrackClick }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState({
@@ -594,14 +677,21 @@ export const SearchView = ({ theme, onTrackClick }) => {
 
   useEffect(() => {
     if (searchQuery.length > 2) {
-      // Simulate search
-      const filteredTracks = MOCK_DATA.recentlyPlayed.filter(track => 
+      // Enhanced search across all data
+      const allTracks = [
+        ...MOCK_DATA.recentlyPlayed,
+        ...MOCK_DATA.featuredPlaylists.flatMap(playlist => playlist.tracks || [])
+      ];
+      
+      const filteredTracks = allTracks.filter(track => 
         track.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         track.artist.toLowerCase().includes(searchQuery.toLowerCase())
       );
+      
       const filteredArtists = MOCK_DATA.topArtists.filter(artist =>
         artist.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
+      
       const filteredPlaylists = MOCK_DATA.featuredPlaylists.filter(playlist =>
         playlist.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
