@@ -151,6 +151,13 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
   const [volume, setVolume] = useState(70);
+  const [queue, setQueue] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isShuffled, setIsShuffled] = useState(false);
+  const [isRepeated, setIsRepeated] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [player, setPlayer] = useState(null);
 
   // Load saved theme and user session from localStorage
   useEffect(() => {
@@ -170,6 +177,19 @@ function App() {
       }
     }
   }, []);
+
+  // Update current time
+  useEffect(() => {
+    let interval;
+    if (isPlaying && player) {
+      interval = setInterval(() => {
+        if (player.getCurrentTime) {
+          setCurrentTime(player.getCurrentTime());
+        }
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isPlaying, player]);
 
   // Event handlers
   const handleThemeChange = (theme) => {
