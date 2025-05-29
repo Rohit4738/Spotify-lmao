@@ -238,7 +238,7 @@ const GoogleIcon = ({ className = "w-5 h-5" }) => (
 );
 
 // YouTube Player Component
-const YouTubePlayer = ({ isPlaying, currentTrack, onEnded }) => {
+export const YouTubePlayer = ({ isPlaying, currentTrack, onEnded }) => {
   const playerRef = useRef(null);
 
   useEffect(() => {
