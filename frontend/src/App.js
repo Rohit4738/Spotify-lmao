@@ -209,36 +209,117 @@ function App() {
     setCurrentView('home');
   };
 
-  const handlePlayPause = () => {
-    if (currentTrack) {
-      setIsPlaying(!isPlaying);
-      // In a real app, this would control YouTube player
-      if (!isPlaying) {
-        console.log(`Playing: ${currentTrack.youtubeQuery}`);
-        // window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(currentTrack.youtubeQuery)}`, '_blank');
+  const handlePlayerReady = (playerInstance) => {
+    setPlayer(playerInstance);
+  };
+
+  const handleStateChange = (event) => {
+    // YouTube player states: -1 (unstarted), 0 (ended), 1 (playing), 2 (paused), 3 (buffering), 5 (cued)
+    if (event.data === 1) {
+      setIsPlaying(true);
+      if (playerInstance.getDuration) {
+        setDuration(playerInstance.getDuration());
       }
+    } else if (event.data === 2) {
+      setIsPlaying(false);
+    } else if (event.data === 0) {
+      // Video ended
+      handleNext();
+    }
+  };
+
+  const handlePlayPause = () => {
+    if (currentTrack && player) {
+      if (isPlaying) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+    } else if (currentTrack && !player) {
+      // If no player yet but track selected, just toggle state
+      setIsPlaying(!isPlaying);
     }
   };
 
   const handleTrackClick = (track) => {
     setCurrentTrack(track);
     setIsPlaying(true);
-    // In a real implementation, this would start YouTube playback
-    console.log(`Now playing: ${track.title} by ${track.artist}`);
-    console.log(`YouTube search: ${track.youtubeQuery}`);
     
-    // Simulate opening YouTube in new tab for demonstration
-    // window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(track.youtubeQuery)}`, '_blank');
+    // Create queue from current context
+    let newQueue = [];
+    if (currentView === 'home') {
+      newQueue = MOCK_DATA.recentlyPlayed;
+    } else if (currentView === 'search') {
+      newQueue = [track]; // For search, just play the selected track
+    }
+    
+    setQueue(newQueue);
+    const trackIndex = newQueue.findIndex(t => t.id === track.id);
+    setCurrentIndex(trackIndex >= 0 ? trackIndex : 0);
+    
+    console.log(`Now playing: ${track.title} by ${track.artist}`);
+  };
+
+  const handleNext = () => {
+    if (queue.length === 0) return;
+    
+    let nextIndex;
+    if (isShuffled) {
+      nextIndex = Math.floor(Math.random() * queue.length);
+    } else {
+      nextIndex = (currentIndex + 1) % queue.length;
+    }
+    
+    setCurrentIndex(nextIndex);
+    setCurrentTrack(queue[nextIndex]);
+    setIsPlaying(true);
+  };
+
+  const handlePrevious = () => {
+    if (queue.length === 0) return;
+    
+    let prevIndex;
+    if (isShuffled) {
+      prevIndex = Math.floor(Math.random() * queue.length);
+    } else {
+      prevIndex = currentIndex === 0 ? queue.length - 1 : currentIndex - 1;
+    }
+    
+    setCurrentIndex(prevIndex);
+    setCurrentTrack(queue[prevIndex]);
+    setIsPlaying(true);
+  };
+
+  const handleShuffle = () => {
+    setIsShuffled(!isShuffled);
+  };
+
+  const handleRepeat = () => {
+    setIsRepeated(!isRepeated);
   };
 
   const handleVolumeChange = (newVolume) => {
     setVolume(newVolume);
-    // In a real app, this would control YouTube player volume
+    if (player && player.setVolume) {
+      player.setVolume(newVolume);
+    }
+  };
+
+  const handleSeek = (time) => {
+    if (player && player.seekTo) {
+      player.seekTo(time);
+      setCurrentTime(time);
+    }
   };
 
   const handleItemClick = (item) => {
     console.log('Item clicked:', item);
     // Handle playlist/album/artist clicks
+    if (item.tracks && item.tracks.length > 0) {
+      // If it's a playlist with tracks, play the first track
+      handleTrackClick(item.tracks[0]);
+      setQueue(item.tracks);
+    }
   };
 
   // Render content based on current view
